@@ -5,19 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Tu título aquí</title>
+    <style>
+        body {
+            background-color: rgb(76 97 151);
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5%;
+        }
+        #url-input {
+            width: 90%;
+            margin: auto;
+            margin-bottom: 5%;
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
-        <img src="path_to_your_image.jpg" class="card-img-top" alt="QR Code">
-        <div class="card-body">
-            <h5 class="card-title">QR Card Title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">QR Card Subtitle</h6>
+    <div class="modal-dialog modal-dialog-centered shadow">
+        <div class="modal-content rounded">
+            <div class="modal-header">
+                <h5 class="modal-title">QR Generator</h5>
+            </div>
+            <div class="modal-body text-center">
+                <div id="qrcode"></div>
+                <input id="url-input" type="text" placeholder="Text to Convert">
+                <button id="generate-btn" class="btn btn-primary rounded-pill">Generate QR</button>
+            </div>
+           
         </div>
     </div>
 
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 128,
+            height: 128,
+            colorDark : "#2980B9",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            var url = document.getElementById('url-input').value;
+            qrcode.makeCode(url);
+        });
+    </script>
 </body>
 </html>
-
